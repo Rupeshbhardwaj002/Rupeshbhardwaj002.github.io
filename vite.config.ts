@@ -4,7 +4,6 @@ import path from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/Rupeshbhardwaj002.github.io/', // <-- Update this line
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
