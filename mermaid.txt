@@ -1,0 +1,26 @@
+```mermaid
+graph TD
+    subgraph "Version Control & CI/CD"
+        Git[Git / GitHub] -->|Push Code| GHA[GitHub Actions]
+        DVC[DVC] -->|Push Data| S3_Data[(AWS S3 - Data)]
+    end
+
+    subgraph "Model Training & Registry"
+        Train[Training Pipeline] -->|Log Metrics/Artifacts| MLflow[MLflow Server]
+        MLflow -->|Register Model| Registry[(Model Registry)]
+    end
+
+    subgraph "Containerization & Deployment"
+        GHA -->|Build & Push| ECR[AWS ECR]
+        ECR -->|Pull Image| EKS[AWS EKS Cluster]
+        CF[CloudFormation] -->|Provision| EKS
+    end
+
+    subgraph "Kubernetes (EKS) & Observability"
+        EKS --> Pods[Model API Pods]
+        Pods --> Prom[Prometheus]
+        Prom --> Grafana[Grafana Dashboards]
+    end
+
+    Git --> Train
+```
